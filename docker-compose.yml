@@ -10,3 +10,27 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: supersecret
       POSTGRES_DB: notesapp
+    networks:
+      - notesapp
+
+  rabbitmq:
+    container_name: notesapp-rabbitmq
+    image: rabbitmq:3-management
+    restart: always
+    ports:
+      - '5672:5672'
+      - '15672:15672'
+    networks:
+      - notesapp
+
+  redis:
+    container_name: notesapp-redis
+    image: redis:latest
+    restart: always
+    ports:
+      - '6379:6379'
+    networks:
+      - notesapp
+
+networks:
+  notesapp:
